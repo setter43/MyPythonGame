@@ -29,11 +29,17 @@ clock = pygame.time.Clock()
 
 #game loop
 while not game_over:
-    dt = clock.tick(80)
+    dt = clock.tick(60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_over = True
-        pressed = pygame.key.get_pressed()
+        
+        #else if Sprite moves with mouse
+        elif event.type == pygame.MOUSEMOTION :
+            x, y = event.pos
+            x -= footballWidth/2
+            y -= footballHeight/2
+    pressed = pygame.key.get_pressed()
 
     # Update position based on pressed keys
     if pressed[K_UP]:
@@ -47,6 +53,15 @@ while not game_over:
     if pressed[K_SPACE]:
         x, y = (0, 0)
 
+    if x > (screen.get_width()- footballWidth):
+        x = screen.get_width() - footballWidth
+    if x < 0:
+        x = 0
+    
+    if y > (screen.get_height()- footballHeight):
+        y = screen.get_height() - footballHeight
+    if y < 0:
+        y = 0
     #clears game screens
     screen.fill((0,0,0))
 
